@@ -6,7 +6,7 @@ on:
 
 jobs:
   import-svn:
-    runs-on: ubuntu-22.04  # Usamos Ubuntu 22.04 en lugar de ubuntu-latest
+    runs-on: ubuntu-20.04  # Cambiado a ubuntu-20.04 para que git-svn encuentre una versión compatible de Git
 
     steps:
     - name: Actualizar repositorios e instalar git-svn
@@ -25,6 +25,6 @@ jobs:
       run: |
         cd qautorouter-git
         git remote add origin https://x-access-token:${MY_TOKEN}@github.com/${REPO_NAME}.git
-        # Envía todas las ramas y el historial completo
+        # Envía todas las ramas y etiquetas
         git push -u origin --all
         git push origin --tags
