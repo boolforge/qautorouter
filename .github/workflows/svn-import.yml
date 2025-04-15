@@ -1,0 +1,30 @@
+name: Importar SVN a GitHub
+
+# Permite iniciar el workflow manualmente desde la pestaña Actions
+on:
+  workflow_dispatch:
+
+jobs:
+  import-svn:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Instalar git-svn
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git-svn
+
+    - name: Clonar el repositorio SVN
+      run: |
+        git svn clone https://svn.code.sf.net/p/qautorouter/code/ --stdlayout qautorouter-git
+
+    - name: Configurar Git y hacer push a GitHub
+      env:
+        REPO_NAME: ${{ secrets.REPO_NAME }}
+        MY_TOKEN: ${{ secrets.MY_TOKEN }}
+      run: |
+        cd qautorouter-git
+        git remote add origin https://x-access-token:${MY_TOKEN}@github.com/${REPO_NAME}.git
+        # Envía todas las ramas y el historial completo
+        git push -u origin --all
+        git push origin --tags
