@@ -12,7 +12,7 @@ jobs:
     - name: Actualizar repositorios e instalar git-svn
       run: |
         sudo apt-get update
-        sudo apt-get install -y git=1:2.24.0-1ubuntu1 git-svn
+        sudo apt-get install -y git git-svn
     - name: Clonar el repositorio SVN
       run: |
         git svn clone https://svn.code.sf.net/p/qautorouter/code/ --stdlayout qautorouter-git
